@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://btxb5uilutt3s"]
+
+[ext_resource type="Texture2D" uid="uid://da3v12x6xyuxc" path="res://arena.png" id="1_ubfh8"]
+
+[node name="arena" type="Node2D"]
+
+[node name="Arena" type="Sprite2D" parent="."]
+texture = ExtResource("1_ubfh8")
+centered = false
