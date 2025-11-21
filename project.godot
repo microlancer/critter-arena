@@ -13,13 +13,29 @@ config_version=5
 config/name="Critter Arena"
 run/main_scene="uid://djb5nt50ej356"
 config/features=PackedStringArray("4.5", "GL Compatibility")
+run/max_fps=20
 config/icon="res://icon.svg"
 
 [display]
 
 window/size/viewport_width=320
 window/size/viewport_height=240
+window/size/window_width_override=960
+window/size/window_height_override=720
 window/stretch/mode="viewport"
+
+[gui]
+
+fonts/dynamic_fonts/use_oversampling=false
+theme/default_font_antialiasing=0
+theme/default_font_hinting=0
+theme/default_font_subpixel_positioning=0
+theme/custom="uid://dwkk5u36gfvms"
+theme/custom_font="uid://cwxhb5sltr3gd"
+
+[physics]
+
+2d/default_gravity=0.0
 
 [rendering]
 

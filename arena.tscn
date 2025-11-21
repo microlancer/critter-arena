@@ -1,9 +1,185 @@
-[gd_scene load_steps=2 format=3 uid="uid://btxb5uilutt3s"]
+[gd_scene load_steps=18 format=3 uid="uid://btxb5uilutt3s"]
 
-[ext_resource type="Texture2D" uid="uid://da3v12x6xyuxc" path="res://arena.png" id="1_ubfh8"]
+[ext_resource type="Script" uid="uid://bkb3bljqr8xnc" path="res://gogomite.gd" id="1_27ga2"]
+[ext_resource type="Script" uid="uid://ddyr8px8p6qs3" path="res://arena.gd" id="1_sbb53"]
+[ext_resource type="Texture2D" uid="uid://da3v12x6xyuxc" path="res://art/arena.png" id="1_ubfh8"]
+[ext_resource type="Texture2D" uid="uid://b1obwow3p1os6" path="res://art/gogmite.png" id="2_444vf"]
+[ext_resource type="Script" uid="uid://l30spuwxsnhf" path="res://player_base.gd" id="4_h0wof"]
+[ext_resource type="Texture2D" uid="uid://dm2mx0w675sm6" path="res://art/splatter.png" id="5_fu4bq"]
+[ext_resource type="AudioStream" uid="uid://re1rmwa44t02" path="res://audio/sparkle-stars.ogg" id="7_pbtuc"]
+[ext_resource type="AudioStream" uid="uid://c2eontwytttha" path="res://audio/Hit 10 - Sound effects Pack 2.ogg" id="8_yokb4"]
+[ext_resource type="Texture2D" uid="uid://davuj0q43834r" path="res://art/breed.png" id="9_n068f"]
+[ext_resource type="Texture2D" uid="uid://ccon0v7wo1lg4" path="res://art/flask.png" id="10_g8a64"]
+[ext_resource type="Texture2D" uid="uid://u386b1b6jxfk" path="res://art/heart.png" id="11_uvldv"]
+[ext_resource type="Texture2D" uid="uid://crlwxcr2ecj32" path="res://art/critter-coins.png" id="12_nb1nt"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_27ga2"]
+radius = 13.0
+height = 26.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h0wof"]
+radius = 35.0
+height = 70.0
+
+[sub_resource type="SystemFont" id="SystemFont_h0wof"]
+font_italic = true
+generate_mipmaps = true
+force_autohinter = true
+modulate_color_glyphs = true
+hinting = 0
+subpixel_positioning = 3
+multichannel_signed_distance_field = true
+oversampling = 33.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_sbb53"]
+font = SubResource("SystemFont_h0wof")
+font_size = 12
+font_color = Color(0, 1, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_uvldv"]
+font_size = 12
+font_color = Color(0, 1, 0, 1)
 
 [node name="arena" type="Node2D"]
+script = ExtResource("1_sbb53")
 
 [node name="Arena" type="Sprite2D" parent="."]
 texture = ExtResource("1_ubfh8")
 centered = false
+
+[node name="Gogmite" type="CharacterBody2D" parent="." groups=["Enemies"]]
+script = ExtResource("1_27ga2")
+
+[node name="Sprite2D" type="Sprite2D" parent="Gogmite"]
+texture = ExtResource("2_444vf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Gogmite"]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_27ga2")
+
+[node name="PlayerBase" type="Area2D" parent="." node_paths=PackedStringArray("base_hp_label")]
+position = Vector2(156, 199)
+script = ExtResource("4_h0wof")
+base_hp_label = NodePath("../BaseHP")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBase"]
+visible = false
+position = Vector2(-3, 18)
+shape = SubResource("CapsuleShape2D_h0wof")
+
+[node name="Splatter" type="Sprite2D" parent="PlayerBase"]
+visible = false
+position = Vector2(0, -7)
+texture = ExtResource("5_fu4bq")
+
+[node name="HitSound" type="AudioStreamPlayer2D" parent="PlayerBase"]
+position = Vector2(-156, -199)
+stream = ExtResource("8_yokb4")
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+offset_left = 137.0
+offset_top = 193.0
+offset_right = 172.0
+offset_bottom = 196.0
+color = Color(0, 1, 0, 1)
+
+[node name="ColorRect" type="ColorRect" parent="ColorRect2"]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 1.0
+offset_right = 34.0
+offset_bottom = 2.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="."]
+offset_left = 140.0
+offset_top = 5.0
+offset_right = 175.0
+offset_bottom = 8.0
+color = Color(0, 1, 0, 1)
+
+[node name="ColorRect" type="ColorRect" parent="ColorRect3"]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 1.0
+offset_right = 34.0
+offset_bottom = 2.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect4" type="ColorRect" parent="."]
+offset_top = 199.0
+offset_right = 320.0
+offset_bottom = 238.0
+color = Color(0, 1, 0, 1)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_top = 200.0
+offset_right = 320.0
+offset_bottom = 240.0
+color = Color(0, 0, 0, 1)
+
+[node name="BaseHP" type="Label" parent="."]
+offset_left = 142.0
+offset_top = 202.0
+offset_right = 211.0
+offset_bottom = 218.0
+text = "100,000"
+label_settings = SubResource("LabelSettings_sbb53")
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 142.0
+offset_top = 221.0
+offset_right = 208.0
+offset_bottom = 237.0
+text = "2,000"
+label_settings = SubResource("LabelSettings_sbb53")
+
+[node name="BgMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_pbtuc")
+parameters/looping = true
+
+[node name="Breed" type="Sprite2D" parent="."]
+position = Vector2(31, 216)
+texture = ExtResource("9_n068f")
+
+[node name="Label" type="Label" parent="Breed"]
+offset_left = -16.0
+offset_top = 9.0
+offset_right = 24.0
+offset_bottom = 31.0
+text = "breed"
+label_settings = SubResource("LabelSettings_uvldv")
+
+[node name="Flask" type="Sprite2D" parent="."]
+position = Vector2(82, 216)
+texture = ExtResource("10_g8a64")
+
+[node name="Label2" type="Label" parent="Flask"]
+offset_left = -25.0
+offset_top = 9.0
+offset_right = 29.0
+offset_bottom = 31.0
+text = "research"
+label_settings = SubResource("LabelSettings_uvldv")
+
+[node name="Heart" type="Sprite2D" parent="."]
+position = Vector2(130, 210)
+texture = ExtResource("11_uvldv")
+
+[node name="CritterCoins" type="Sprite2D" parent="."]
+position = Vector2(131, 229)
+texture = ExtResource("12_nb1nt")
+
+[node name="CritterCoins2" type="Sprite2D" parent="."]
+position = Vector2(257, 140)
+texture = ExtResource("12_nb1nt")
+
+[node name="CritterCoins3" type="Sprite2D" parent="."]
+position = Vector2(35, 92)
+texture = ExtResource("12_nb1nt")
+
+[node name="Gogmite2" type="Sprite2D" parent="."]
+position = Vector2(249, 88)
+texture = ExtResource("2_444vf")
+
+[connection signal="body_entered" from="PlayerBase" to="PlayerBase" method="_on_body_entered"]

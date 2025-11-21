@@ -1,9 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://djb5nt50ej356"]
+[gd_scene load_steps=4 format=3 uid="uid://djb5nt50ej356"]
 
-[ext_resource type="Texture2D" uid="uid://cvonou5fwhxhs" path="res://critter-arena.png" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://0dtmiqevdqa8" path="res://main.gd" id="1_h2yge"]
+[ext_resource type="Texture2D" uid="uid://cvonou5fwhxhs" path="res://art/critter-arena.png" id="1_ig7tw"]
+[ext_resource type="AudioStream" uid="uid://sa6c7v0q71jl" path="res://audio/melody-meadow_2.ogg" id="2_0xm2m"]
 
-[node name="Node2D" type="Node2D"]
+[node name="main" type="Node2D"]
+script = ExtResource("1_h2yge")
 
-[node name="CritterArena2" type="Sprite2D" parent="."]
+[node name="CritterArena" type="Sprite2D" parent="."]
 texture = ExtResource("1_ig7tw")
 centered = false
+
+[node name="IntroMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_0xm2m")
+parameters/looping = true
